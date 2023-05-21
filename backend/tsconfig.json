@@ -8,7 +8,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "types": ["node"]
-  },
-  "include": ["src"]
+    "types": ["node"],
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  }
 }

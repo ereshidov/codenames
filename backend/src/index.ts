@@ -1,33 +1,20 @@
-import { ApolloServer } from '@apollo/server'
-import { gql } from 'graphql-tag'
-import { startStandaloneServer } from '@apollo/server/standalone'
+import { typeDefs } from './typeDefs'
+import resolvers from './modules/index'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`
+import { WebSocketServer } from 'ws'
+import { useServer } from 'graphql-ws/lib/use/ws'
 
-const resolvers = {
-  Query: {
-    hello: () => 'Hello, World!'
-  }
-}
-
-const run = async (): Promise<void> => {
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers
-  })
-
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 }
-  })
-
-  console.log(`🚀  Server ready at: ${String(url)}`)
-}
-
-run().catch((error) => {
-  console.error(error)
-  process.exit(1)
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
 })
+
+const server = new WebSocketServer({
+  port: 5000,
+  path: '/graphql'
+})
+
+useServer({ schema }, server)
+
+console.log('Web socket server is started 🚀')
