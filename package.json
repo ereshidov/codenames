@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:ereshidov/codenames.git",
-  "author": "ereshidov <newfaceof@ya.ru>",
+  "author": "ereshidov",
+  "private": "true",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "license": "MIT",
   "devDependencies": {
     "husky": "^8.0.3",

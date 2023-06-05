@@ -1,5 +1,6 @@
 {
   "name": "backend",
+  "private": "true",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -35,6 +36,6 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "nodemon": "^2.0.22",
-    "typescript": "*"
+    "typescript": "^5.0.0"
   }
 }
