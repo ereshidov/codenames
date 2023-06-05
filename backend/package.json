@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "yarn generate && nodemon --exec babel-node --extensions '.ts' src/index.ts",
-    "generate": "graphql-codegen"
+    "dev": "nodemon --exec babel-node --extensions '.ts' src/index.ts"
   },
   "license": "MIT",
   "dependencies": {
@@ -30,9 +29,6 @@
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-typescript": "^7.21.4",
-    "@graphql-codegen/cli": "^3.3.0",
-    "@graphql-codegen/typescript": "^3.0.3",
-    "@graphql-codegen/typescript-resolvers": "^3.2.0",
     "@graphql-tools/load-files": "^6.6.1",
     "@types/cors": "^2.8.13",
     "@types/glob": "^8.1.0",

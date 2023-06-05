@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 
 import express from 'express'
 
-// import { config } from '~/config'
+import { config } from '~/config'
 import { createApolloServer } from './server'
 
 const run = async (): Promise<void> => {
@@ -17,13 +17,13 @@ const run = async (): Promise<void> => {
   await apolloServer.start()
 
   app.use(
-    '/',
+    '/graphql',
     cors<cors.CorsRequest>(),
     bodyParser.json({ limit: '50mb' }),
     expressMiddleware(apolloServer)
   )
-  httpServer.listen(5000, () => {
-    console.log('Server listening at http://localhost:5000 🚀')
+  httpServer.listen(config.port, () => {
+    console.log(`Server listening at http://localhost:${config.port} 🚀`)
   })
 }
 

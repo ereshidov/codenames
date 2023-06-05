@@ -11,13 +11,20 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript-resolvers": "^4.0.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.7"
   },
   "scripts": {
+    "gen": "graphql-codegen",
+    "gen:watch": "yarn gen --watch",
     "frontend": "cd frontend && yarn dev",
     "backend": "cd backend && yarn dev",
     "dev": "concurrently --kill-others \"yarn backend\" \"yarn frontend\"",
+    "predev": "yarn gen",
     "prepare": "husky install",
     "lint": "eslint --ignore-path .gitignore --fix",
     "prettier": "pretty-quick"
