@@ -10,12 +10,15 @@
     "prettier": "^2.8.7"
   },
   "scripts": {
-    "dev": "cd backend && yarn dev",
+    "frontend": "cd frontend && yarn dev",
+    "backend": "cd backend && yarn dev",
+    "dev": "concurrently --kill-others \"yarn backend\" \"yarn frontend\"",
     "prepare": "husky install",
-    "lint": "eslint",
+    "lint": "eslint --ignore-path .gitignore",
     "prettier": "pretty-quick"
   },
   "dependencies": {
+    "concurrently": "^8.0.1",
     "eslint": "^8.39.0",
     "pretty-quick": "^3.1.3"
   }
