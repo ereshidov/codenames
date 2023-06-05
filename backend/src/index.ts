@@ -1,20 +1,33 @@
-import { typeDefs } from './typeDefs'
-import resolvers from './modules/index'
-import { makeExecutableSchema } from '@graphql-tools/schema'
+import cors from 'cors'
+import { expressMiddleware } from '@apollo/server/express4'
 
-import { WebSocketServer } from 'ws'
-import { useServer } from 'graphql-ws/lib/use/ws'
+import bodyParser from 'body-parser'
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
+import express from 'express'
+
+// import { config } from '~/config'
+import { createApolloServer } from './server'
+
+const run = async (): Promise<void> => {
+  const app = express()
+  // 📓 TODO: create context
+  // 📓 TODO: add db connection
+
+  const { apolloServer, httpServer } = await createApolloServer({ app })
+  await apolloServer.start()
+
+  app.use(
+    '/',
+    cors<cors.CorsRequest>(),
+    bodyParser.json({ limit: '50mb' }),
+    expressMiddleware(apolloServer)
+  )
+  httpServer.listen(5000, () => {
+    console.log('Server listening at http://localhost:5000 🚀')
+  })
+}
+
+void run().catch((error) => {
+  console.error(error)
+  process.exit(1)
 })
-
-const server = new WebSocketServer({
-  port: 5000,
-  path: '/graphql'
-})
-
-useServer({ schema }, server)
-
-console.log('Web socket server is started 🚀')
